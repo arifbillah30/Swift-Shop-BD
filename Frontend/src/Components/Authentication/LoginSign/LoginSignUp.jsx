@@ -72,9 +72,11 @@ const LoginSignUp = () => {
       if (!response.ok) {
         const data = await response.json();
         setRegisterError(data.message || "Registration failed");
+
       } else {
 
-        handleTab("tabButton");
+        handleTab("tabButton1");
+
       }
     } catch (error) {
       console.error("Error during registration:", error);
