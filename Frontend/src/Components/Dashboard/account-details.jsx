@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../CSS/style.css';
+
+
 
 const AccountDetails = () => {
   const [formData, setFormData] = useState({

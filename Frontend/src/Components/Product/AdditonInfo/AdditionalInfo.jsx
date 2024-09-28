@@ -103,23 +103,15 @@ const AdditionalInfo = () => {
               <div className="aiTabAdditionalInfo">
                 <div className="additionalInfoContainer">
                   <h6>Weight</h6>
-                  <p> 1.25 kg</p>
+                  <p> 25.25 kg</p>
                 </div>
                 <div className="additionalInfoContainer">
                   <h6>Dimensions</h6>
-                  <p> 90 x 60 x 90 cm</p>
-                </div>
-                <div className="additionalInfoContainer">
-                  <h6>Size</h6>
-                  <p> XS, S, M, L, XL</p>
+                  <p> 50 x 78 x 33 Inch</p>
                 </div>
                 <div className="additionalInfoContainer">
                   <h6>Color</h6>
-                  <p> Black, Orange, White</p>
-                </div>
-                <div className="additionalInfoContainer">
-                  <h6>Storage</h6>
-                  <p> Relaxed fit shirt-style dress with a rugged</p>
+                  <p> Black, Grey</p>
                 </div>
               </div>
             )}
@@ -201,8 +193,7 @@ const AdditionalInfo = () => {
                   <div className="userNewReview">
                     <div className="userNewReviewMessage">
                       <h5>
-                        Be the first to review “Lightweight Puffer Jacket With a
-                        Hood”
+                        Be the first to review “Comfortable Sofa”
                       </h5>
                       <p>
                         Your email address will not be published. Required

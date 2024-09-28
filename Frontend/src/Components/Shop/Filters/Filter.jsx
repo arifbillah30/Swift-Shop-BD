@@ -49,17 +49,18 @@ const Filter = () => {
   );
 
   const filterCategories = [
-    "Dresses",
-    "Shorts",
-    "Sweatshirts",
-    "Swimwear",
-    "Jackets",
-    "T-Shirts & Tops",
-    "Jeans",
-    "Trousers",
-    "Men",
-    "Jumpers & Cardigans",
+    "Furniture",
+    "Lighting",
+    "Rugs",
+    "Wall Art",
+    "Curtains",
+    "Bedding",
+    "Cushions & Throws",
+    "Mirrors",
+    "Storage Solutions",
+    "Kitchenware",
   ];
+  
 
   const filterColors = [
     "#0B2472",

@@ -9,6 +9,8 @@ import product1 from "../../../Assets/ProductDetail/productdetail-1.jpg";
 import product2 from "../../../Assets/ProductDetail/productdetail-2.jpg";
 import product3 from "../../../Assets/ProductDetail/productdetail-3.jpg";
 import product4 from "../../../Assets/ProductDetail/productdetail-4.jpg";
+import product5 from "../../../Assets/ProductDetail/productdetail-5.jpg";
+import product6 from "../../../Assets/ProductDetail/productdetail-6.jpg";
 
 import { GoChevronLeft } from "react-icons/go";
 import { GoChevronRight } from "react-icons/go";
@@ -25,7 +27,7 @@ import "./Product.css";
 const Product = () => {
   // Product images Gallery
 
-  const productImg = [product1, product2, product3, product4];
+  const productImg = [product1, product2, product3, product4, product5, product6];
   const [currentImg, setCurrentImg] = useState(0);
 
   const prevImg = () => {
@@ -65,23 +67,11 @@ const Product = () => {
     setClicked(!clicked);
   };
 
-  // Product Sizes
+  // Product Colors (Removed Red)
 
-  const sizes = ["XS", "S", "M", "L", "XL"];
-  const sizesFullName = [
-    "Extra Small",
-    "Small",
-    "Medium",
-    "Large",
-    "Extra Large",
-  ];
-  const [selectSize, setSelectSize] = useState("S");
-
-  // Product Colors
-
-  const [highlightedColor, setHighlightedColor] = useState("#C8393D");
-  const colors = ["#222222", "#C8393D", "#E4E4E4"];
-  const colorsName = ["Black", "Red", "Grey"];
+  const [highlightedColor, setHighlightedColor] = useState("#222222");
+  const colors = ["#222222", "#E4E4E4"];
+  const colorsName = ["Black", "Grey"];
 
   // Product Detail to Redux
 
@@ -92,8 +82,8 @@ const Product = () => {
   const handleAddToCart = () => {
     const productDetails = {
       productID: 14,
-      productName: "Lightweight Puffer Jacket",
-      productPrice: 90,
+      productName: "Shintenchi 79 Inch Convertible Sectional Sofa Couch, Modern Linen Fabric L-Shaped",
+      productPrice: 259,
       frontImg: productImg[0],
       productReviews: "8k+ reviews",
     };
@@ -140,6 +130,8 @@ const Product = () => {
               <img src={product2} onClick={() => setCurrentImg(1)} alt="" />
               <img src={product3} onClick={() => setCurrentImg(2)} alt="" />
               <img src={product4} onClick={() => setCurrentImg(3)} alt="" />
+              <img src={product5} onClick={() => setCurrentImg(4)} alt="" />
+              <img src={product6} onClick={() => setCurrentImg(5)} alt="" />
             </div>
             <div className="productFullImg">
               <img src={productImg[currentImg]} alt="" />
@@ -153,6 +145,8 @@ const Product = () => {
               </div>
             </div>
           </div>
+
+
           <div className="productDetails">
             <div className="productBreadcrumb">
               <div className="breadcrumbLink">
@@ -171,7 +165,7 @@ const Product = () => {
               </div>
             </div>
             <div className="productName">
-              <h1>Lightweight Puffer Jacket With a Hood</h1>
+              <h1>Shintenchi 79 Inch Convertible Sectional Sofa Couch, Modern Linen Fabric L-Shaped</h1>
             </div>
             <div className="productRating">
               <FaStar color="#FEC78A" size={10} />
@@ -182,7 +176,7 @@ const Product = () => {
               <p>8k+ reviews</p>
             </div>
             <div className="productPrice">
-              <h3>$90</h3>
+              <h3>$259</h3>
             </div>
             <div className="productDescription">
               <p>
@@ -192,62 +186,36 @@ const Product = () => {
                 aliquet magna posuere eget.
               </p>
             </div>
-            <div className="productSizeColor">
-              <div className="productSize">
-                <p>Sizes</p>
-                <div className="sizeBtn">
-                  {sizes.map((size, index) => (
-                    <Tooltip
-                      key={size}
-                      title={sizesFullName[index]}
-                      placement="top"
-                      TransitionComponent={Zoom}
-                      enterTouchDelay={0}
-                      arrow
-                    >
-                      <button
-                        style={{
-                          borderColor: selectSize === size ? "#000" : "#e0e0e0",
-                        }}
-                        onClick={() => setSelectSize(size)}
-                      >
-                        {size}
-                      </button>
-                    </Tooltip>
-                  ))}
-                </div>
-              </div>
-              <div className="productColor">
-                <p>Color</p>
-                <div className="colorBtn">
-                  {colors.map((color, index) => (
-                    <Tooltip
-                      key={color}
-                      title={colorsName[index]}
-                      placement="top"
-                      enterTouchDelay={0}
-                      TransitionComponent={Zoom}
-                      arrow
-                    >
-                      <button
-                        className={
-                          highlightedColor === color ? "highlighted" : ""
-                        }
-                        style={{
-                          backgroundColor: color.toLowerCase(),
-                          border:
-                            highlightedColor === color
-                              ? "0px solid #000"
-                              : "0px solid white",
-                          padding: "8px",
-                          margin: "5px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => setHighlightedColor(color)}
-                      />
-                    </Tooltip>
-                  ))}
-                </div>
+            <div className="productColor">
+              <p>Color</p>
+              <div className="colorBtn">
+                {colors.map((color, index) => (
+                  <Tooltip
+                    key={color}
+                    title={colorsName[index]}
+                    placement="top"
+                    enterTouchDelay={0}
+                    TransitionComponent={Zoom}
+                    arrow
+                  >
+                    <button
+                      className={
+                        highlightedColor === color ? "highlighted" : ""
+                      }
+                      style={{
+                        backgroundColor: color.toLowerCase(),
+                        border:
+                          highlightedColor === color
+                            ? "0px solid #000"
+                            : "0px solid white",
+                        padding: "8px",
+                        margin: "5px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setHighlightedColor(color)}
+                    />
+                  </Tooltip>
+                ))}
               </div>
             </div>
             <div className="productCartQuantity">
@@ -281,10 +249,10 @@ const Product = () => {
                 <span>SKU: </span>N/A
               </p>
               <p>
-                <span>CATEGORIES: </span>Casual & Urban Wear, Jackets, Men
+                  <span>CATEGORIES: </span>Furniture, Living Room, Sofas & Sectionals              
               </p>
               <p>
-                <span>TAGS: </span>biker, black, bomber, leather
+                  <span>TAGS: </span>sectional, convertible, modern, fabric, L-shaped, sofa
               </p>
             </div>
           </div>

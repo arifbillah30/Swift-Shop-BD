@@ -22,7 +22,8 @@ import TermsConditions from "./Pages/TermsConditions";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart";
 import Popup from "./Components/PopupBanner/Popup";
 import { Toaster } from "react-hot-toast";
-import Dashboard from './Dashboard/account-details';
+import AccountDetails from './Components/Dashboard/account-details'; 
+import AccountOrders from './Components/Dashboard/account-orders'; 
 
 const App = () => {
   return (
@@ -44,7 +45,9 @@ const App = () => {
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/account-details" element={<Dashboard/>} /> 
+          <Route path="/account-details" element={<AccountDetails/>} /> 
+          <Route path="/account-orders" element={<AccountOrders/>} /> 
+
         </Routes>
         <Footer />
         <Toaster />

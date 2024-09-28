@@ -385,7 +385,7 @@ const ShoppingCart = () => {
                         <td>
                           <div className="shoppingBagTotalTableCheck">
                             <p>${(totalPrice === 0 ? 0 : 5).toFixed(2)}</p>
-                            <p>Shipping to Al..</p>
+                            <p>Ship to BD</p>
                             <p
                               onClick={scrollToTop}
                               style={{
@@ -441,11 +441,10 @@ const ShoppingCart = () => {
                         <option value="Country / Region" selected disabled>
                           Country / Region
                         </option>
-                        <option value="India">India</option>
+                        <option value="Bangladesh">Bangladesh</option>
                         <option value="Canada">Canada</option>
                         <option value="United Kingdom">United Kingdom</option>
                         <option value="United States">United States</option>
-                        <option value="Turkey">Turkey</option>
                       </select>
                       <input type="text" placeholder="Street Address*" />
                       <input type="text" placeholder="" />
@@ -527,41 +526,6 @@ const ShoppingCart = () => {
                       <input
                         type="radio"
                         name="payment"
-                        value="Direct Bank Transfer"
-                        defaultChecked
-                        onChange={handlePaymentChange}
-                      />
-                      <div className="checkoutPaymentMethod">
-                        <span>Direct Bank Transfer</span>
-                        <p>
-                          Make your payment directly into our bank account.
-                          Please use your Order ID as the payment reference.Your
-                          order will not be shipped until the funds have cleared
-                          in our account.
-                        </p>
-                      </div>
-                    </label>
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="Check Payments"
-                        onChange={handlePaymentChange}
-                      />
-                      <div className="checkoutPaymentMethod">
-                        <span>Check Payments</span>
-                        <p>
-                          Phasellus sed volutpat orci. Fusce eget lore mauris
-                          vehicula elementum gravida nec dui. Aenean aliquam
-                          varius ipsum, non ultricies tellus sodales eu. Donec
-                          dignissim viverra nunc, ut aliquet magna posuere eget.
-                        </p>
-                      </div>
-                    </label>
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment"
                         value="Cash on delivery"
                         onChange={handlePaymentChange}
                       />
@@ -579,11 +543,11 @@ const ShoppingCart = () => {
                       <input
                         type="radio"
                         name="payment"
-                        value="Paypal"
+                        value="Visa"
                         onChange={handlePaymentChange}
                       />
                       <div className="checkoutPaymentMethod">
-                        <span>Paypal</span>
+                        <span>Visa, MasterCard & Others</span>
                         <p>
                           Phasellus sed volutpat orci. Fusce eget lore mauris
                           vehicula elementum gravida nec dui. Aenean aliquam
