@@ -483,7 +483,7 @@ export default connect(
   {}
 )(
   GoogleApiWrapper({
-    apiKey: "AIzaSyAbvyBxmMbFhrzP9Z8moyYr6dCr-pzjhBE",
+    apiKey: "YOUR_API_KEY",
     LoadingContainer: LoadingContainer,
     v: "3",
   })(UiLightbox)
