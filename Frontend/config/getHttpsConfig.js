@@ -44,7 +44,7 @@ function readEnvFile(file, type) {
 }
 
 // Get the https config
-// Return cert files if provided in env, otherwise just true or false
+// Return an object with cert and key if provided in env, otherwise just false
 function getHttpsConfig() {
   const { SSL_CRT_FILE, SSL_KEY_FILE, HTTPS } = process.env;
   const isHttps = HTTPS === 'true';
@@ -58,9 +58,13 @@ function getHttpsConfig() {
     };
 
     validateKeyAndCerts({ ...config, keyFile, crtFile });
-    return config;
+    // Return the server config format
+    return {
+      type: 'https',
+      options: config,
+    };
   }
-  return isHttps;
+  return false; // Return false when not using HTTPS
 }
 
 module.exports = getHttpsConfig;

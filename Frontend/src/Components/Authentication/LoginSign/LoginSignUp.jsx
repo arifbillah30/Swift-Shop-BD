@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Context/authContext"; // Import AuthContext
 import "./LoginSignUp.css";
 
 const LoginSignUp = () => {
@@ -14,6 +15,7 @@ const LoginSignUp = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Get login function from AuthContext
 
   const handleTab = (tab) => {
     setActiveTab(tab);
@@ -40,9 +42,8 @@ const LoginSignUp = () => {
         setLoginError(data.message || "Login failed");
       } else {
         const { user, token } = await response.json(); // Extract user and token from the response
-        sessionStorage.setItem('authToken', token); // Store the token in sessionStorage
-        sessionStorage.setItem('user', JSON.stringify(user)); // Store user details
-        navigate("/account-details");
+        login(user, token); // Use login function from AuthContext
+        navigate("/");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -72,11 +73,8 @@ const LoginSignUp = () => {
       if (!response.ok) {
         const data = await response.json();
         setRegisterError(data.message || "Registration failed");
-
       } else {
-
-        handleTab("tabButton1");
-
+        handleTab("tabButton1"); // Switch to login tab on successful registration
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -133,7 +131,6 @@ const LoginSignUp = () => {
                 <button type="submit" disabled={loading}>
                   Log In
                 </button>
-                {loading && <p>Loading...</p>}
                 {loginError && <p className="error">{loginError}</p>}
               </form>
               <div className="loginSignUpTabsContentLoginText">
@@ -186,7 +183,6 @@ const LoginSignUp = () => {
                 <button type="submit" disabled={loading}>
                   Register
                 </button>
-                {loading && <p>Loading...</p>}
                 {registerError && <p className="error">{registerError}</p>}
               </form>
             </div>

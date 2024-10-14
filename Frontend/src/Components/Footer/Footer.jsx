@@ -1,3 +1,5 @@
+// Frontend/src/Components/Footer/Footer.jsx
+
 import React from "react";
 import "./Footer.css";
 import logo from "../../Assets/logo.png";
@@ -29,7 +31,7 @@ const Footer = () => {
         <div className="footer__container">
           <div className="footer_left">
             <div className="footer_logo_container">
-              <img src={logo} alt="" Z />
+              <img src={logo} alt=""/>
             </div>
 
             <p>ECB Chattar, Dhaka Cantonment, Dhaka - 1206</p>
@@ -153,7 +155,7 @@ const Footer = () => {
               <p>Currency</p>
               <select name="currency" id="currency">
                 <option value="USD">$ USD</option>
-                <option value="INR">৳ BDT</option>
+                <option value="BDT">৳ BDT</option>
                 <option value="EUR">€ EUR</option>
                 <option value="GBP">£ GBP</option>
               </select>

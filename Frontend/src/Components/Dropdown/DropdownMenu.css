@@ -1,0 +1,48 @@
+.navigation__item {
+  position: relative; /* To position the dropdown */
+  cursor: pointer; /* Indicate that it's clickable */
+}
+
+.sub-menu {
+  background-color: #fff; /* Example background color */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Example box shadow */
+  min-width: 160px; /* Adjust as needed */
+  z-index: 1; /* Ensure it's above other elements */
+  position: absolute; /* Position the dropdown absolutely */
+  left: 0; /* Align it under the parent item */
+  top: calc(100% + 5px); /* Position it just below the parent with a little margin */
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Start hidden */
+  transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth transition */
+}
+
+.navigation__item:hover .sub-menu,
+.sub-menu:hover {
+  opacity: 1; /* Fully visible */
+  visibility: visible; /* Make it visible */
+}
+
+.list-unstyled {
+  list-style: none; 
+  padding: 0;
+  margin: 0;
+}
+
+.sub-menu__item {
+  padding: 10px; /* Add some padding to the list items */
+}
+
+.menu-link {
+  text-decoration: none;
+  color: #333; /* Example link color */
+}
+
+/* Additional styles for hover state */
+.sub-menu__item:hover {
+  background-color: #f1f1f1; /* Change background on hover */
+}
+
+/* Optional: Add a hover effect for the main navigation item */
+.navigation__item:hover {
+  background-color: #eaeaea; /* Change background on hover */
+}

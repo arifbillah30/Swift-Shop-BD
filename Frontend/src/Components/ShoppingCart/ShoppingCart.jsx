@@ -1,3 +1,5 @@
+// Frontend/src/Components/ShoppingCart/ShoppingCart.jsx
+
 import React, { useState } from "react";
 import "./ShoppingCart.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,8 +14,12 @@ import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 import success from "../../Assets/success.png";
+import { useAuth } from "../../Context/authContext";
+
 
 const ShoppingCart = () => {
+  const { authData } = useAuth();
+
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
@@ -65,6 +71,38 @@ const ShoppingCart = () => {
   const handlePaymentChange = (e) => {
     setSelectedPayment(e.target.value);
   };
+
+
+
+  const handleCreateOrder = async () => {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    // setLoading(true);
+    // setOrderError(""); // Reset error message
+    try {
+      const response = await fetch("http://localhost:5000/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "orders": cartItems, "paymentMethod": selectedPayment, "userEmail": user.email, "status": "Pending" }), // orderData contains order details
+      });
+
+      if (!response.ok) {
+      //  const data = await response.json();
+        // setOrderError(data.message || "Failed to create the order");
+      } else {
+        const result = await response.json();
+        console.log("Order created successfully:", result);
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      // setOrderError("An error occurred while creating the order. Please try again later.");
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+
 
   return (
     <div>
@@ -248,6 +286,7 @@ const ShoppingCart = () => {
                               ></input>
                               <button
                                 onClick={(e) => {
+
                                   e.preventDefault();
                                 }}
                               >
@@ -423,161 +462,213 @@ const ShoppingCart = () => {
             )}
 
             {/* tab2 */}
-            {activeTab === "cartTab2" && (
-              <div className="checkoutSection">
-                <div className="checkoutDetailsSection">
-                  <h4>Billing Details</h4>
-                  <div className="checkoutDetailsForm">
-                    <form>
-                      <div className="checkoutDetailsFormRow">
-                        <input type="text" placeholder="First Name" />
-                        <input type="text" placeholder="Last Name" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Company Name (optional)"
-                      />
-                      <select name="country" id="country">
-                        <option value="Country / Region" selected disabled>
-                          Country / Region
-                        </option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Canada">Canada</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="United States">United States</option>
-                      </select>
-                      <input type="text" placeholder="Street Address*" />
-                      <input type="text" placeholder="" />
-                      <input type="text" placeholder="Town / City *" />
-                      <input type="text" placeholder="Postcode / ZIP *" />
-                      <input type="text" placeholder="Phone *" />
-                      <input type="mail" placeholder="Your Mail *" />
-                      <div className="checkoutDetailsFormCheck">
-                        <label>
-                          <input type="checkbox" />
-                          <p>Create An Account?</p>
-                        </label>
-                        <label>
-                          <input type="checkbox" />
-                          <p>Ship to a different Address</p>
-                        </label>
-                      </div>
-                      <textarea
-                        cols={30}
-                        rows={8}
-                        placeholder="Order Notes (Optional)"
-                      />
-                    </form>
-                  </div>
-                </div>
-                <div className="checkoutPaymentSection">
-                  <div className="checkoutTotalContainer">
-                    <h3>Your Order</h3>
-                    <div className="checkoutItems">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>PRODUCTS</th>
-                            <th>SUBTOTALS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {cartItems.map((items) => (
-                            <tr>
-                              <td>
-                                {items.productName} x {items.quantity}
-                              </td>
-                              <td>${items.productPrice * items.quantity}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="checkoutTotal">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <th>Subtotal</th>
-                            <td>${totalPrice.toFixed(2)}</td>
-                          </tr>
-                          <tr>
-                            <th>Shipping</th>
-                            <td>$5</td>
-                          </tr>
-                          <tr>
-                            <th>VAT</th>
-                            <td>$11</td>
-                          </tr>
-                          <tr>
-                            <th>Total</th>
-                            <td>
-                              $
-                              {(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(
-                                2
-                              )}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <div className="checkoutPaymentContainer">
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="Cash on delivery"
-                        onChange={handlePaymentChange}
-                      />
-                      <div className="checkoutPaymentMethod">
-                        <span>Cash on delivery</span>
-                        <p>
-                          Phasellus sed volutpat orci. Fusce eget lore mauris
-                          vehicula elementum gravida nec dui. Aenean aliquam
-                          varius ipsum, non ultricies tellus sodales eu. Donec
-                          dignissim viverra nunc, ut aliquet magna posuere eget.
-                        </p>
-                      </div>
-                    </label>
-                    <label>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="Visa"
-                        onChange={handlePaymentChange}
-                      />
-                      <div className="checkoutPaymentMethod">
-                        <span>Visa, MasterCard & Others</span>
-                        <p>
-                          Phasellus sed volutpat orci. Fusce eget lore mauris
-                          vehicula elementum gravida nec dui. Aenean aliquam
-                          varius ipsum, non ultricies tellus sodales eu. Donec
-                          dignissim viverra nunc, ut aliquet magna posuere eget.
-                        </p>
-                      </div>
-                    </label>
-                    <div className="policyText">
-                      Your personal data will be used to process your order,
-                      support your experience throughout this website, and for
-                      other purposes described in our{" "}
-                      <Link to="/terms" onClick={scrollToTop}>
-                        Privacy Policy
-                      </Link>
-                      .
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => {
-                      handleTabClick("cartTab3");
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                      setPayments(true);
-                    }}
-                  >
-                    Place Order
-                  </button>
-                </div>
+         {/* tab2 */}
+{activeTab === "cartTab2" && (
+  <div className="checkoutSection">
+    <div className="checkoutDetailsSection">
+      <h4>Shipping Address</h4>
+      <div className="checkoutDetailsForm">
+        <form>
+          {authData.user ? (
+            // For signed-in users: show their account details
+            <>
+              <div className="checkoutDetailsFormRow">
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  value={authData.user.firstName || ''}
+                  readOnly
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  value={authData.user.lastName || ''}
+                  readOnly
+                />
               </div>
-            )}
+              <input
+                type="text"
+                placeholder="Company Name (optional)"
+                defaultValue={authData.user.companyName || ''}
+              />
+              <input
+                type="text"
+                placeholder="Street Address*"
+                defaultValue={authData.user.address || ''}
+              />
+              <input
+                type="text"
+                placeholder="Town / City *"
+                defaultValue={authData.user.city || ''}
+              />
+              <input
+                type="text"
+                placeholder="Postcode / ZIP *"
+                defaultValue={authData.user.postcode || ''}
+              />
+              <input
+                type="text"
+                placeholder="Phone *"
+                defaultValue={authData.user.phone || ''}
+              />
+              <input
+                type="email"
+                placeholder="Your Mail *"
+                defaultValue={authData.user.email || ''}
+              />
+
+              <textarea
+                cols={30}
+                rows={8}
+                placeholder="Order Notes (Optional)"
+              />
+            </>
+          ) : (
+            // For guests: show billing details form
+            <>
+              <div className="checkoutDetailsFormRow">
+                <input type="text" placeholder="First Name" required />
+                <input type="text" placeholder="Last Name" required />
+              </div>
+              <input type="text" placeholder="Company Name (optional)" />
+              <select name="country" id="country" required>
+                <option value="" selected disabled>Country / Region</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+              </select>
+              <input type="text" placeholder="Street Address*" required />
+              <input type="text" placeholder="Town / City *" required />
+              <input type="text" placeholder="Postcode / ZIP *" required />
+              <input type="text" placeholder="Phone *" required />
+              <input type="email" placeholder="Your Mail *" required />
+
+              <div className="checkoutDetailsFormCheck">
+                <label>
+                  <input type="checkbox" />
+                  <p>Create An Account?</p>
+                </label>
+                <label>
+                  <input type="checkbox" />
+                  <p>Ship to a different Address</p>
+                </label>
+              </div>
+              <textarea
+                cols={30}
+                rows={8}
+                placeholder="Order Notes (Optional)"
+              />
+            </>
+          )}
+        </form>
+      </div>
+    </div>
+
+    <div className="checkoutPaymentSection">
+      <div className="checkoutTotalContainer">
+        <h3>Your Order</h3>
+        <div className="checkoutItems">
+          <table>
+            <thead>
+              <tr>
+                <th>PRODUCTS</th>
+                <th>SUBTOTALS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((items) => (
+                <tr key={items.productId}>
+                  <td>{items.productName} x {items.quantity}</td>
+                  <td>${(items.productPrice * items.quantity).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="checkoutTotal">
+          <table>
+            <tbody>
+              <tr>
+                <th>Subtotal</th>
+                <td>${totalPrice.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <th>Shipping</th>
+                <td>$5.00</td>
+              </tr>
+              <tr>
+                <th>VAT</th>
+                <td>$11.00</td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <td>${(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(2)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="checkoutPaymentContainer">
+        <label>
+          <input
+            type="radio"
+            name="payment"
+            value="Cash on delivery"
+            onChange={handlePaymentChange}
+          />
+          <div className="checkoutPaymentMethod">
+            <span>Cash on delivery</span>
+            <p>
+              Phasellus sed volutpat orci. Fusce eget lore mauris
+              vehicula elementum gravida nec dui. Aenean aliquam
+              varius ipsum, non ultricies tellus sodales eu. Donec
+              dignissim viverra nunc, ut aliquet magna posuere eget.
+            </p>
+          </div>
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="payment"
+            value="Visa"
+            onChange={handlePaymentChange}
+          />
+          <div className="checkoutPaymentMethod">
+            <span>Visa, MasterCard & Others</span>
+            <p>
+              Phasellus sed volutpat orci. Fusce eget lore mauris
+              vehicula elementum gravida nec dui. Aenean aliquam
+              varius ipsum, non ultricies tellus sodales eu. Donec
+              dignissim viverra nunc, ut aliquet magna posuere eget.
+            </p>
+          </div>
+        </label>
+        <div className="policyText">
+          Your personal data will be used to process your order,
+          support your experience throughout this website, and for
+          other purposes described in our{" "}
+          <Link to="/terms" onClick={scrollToTop}>
+            Privacy Policy
+          </Link>
+          .
+        </div>
+      </div>
+      <button
+        onClick={() => {
+          handleCreateOrder();
+          handleTabClick("cartTab3");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          setPayments(true);
+        }}
+      >
+        Place Order
+      </button>
+    </div>
+  </div>
+)}
+
 
             {/* tab3 */}
             {activeTab === "cartTab3" && (

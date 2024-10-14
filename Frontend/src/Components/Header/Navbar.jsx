@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./Navbar.css";
 
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import logo from "../../Assets/logo.png";
-import { Link } from "react-router-dom";
 
 import { RiMenu2Line } from "react-icons/ri";
 import { FiSearch } from "react-icons/fi";
@@ -13,19 +13,17 @@ import { RiShoppingBagLine } from "react-icons/ri";
 import { MdOutlineClose } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 
-// social Links imports Icons
-
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube, FaPinterest } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
-import { FaPinterest } from "react-icons/fa";
 
 import Badge from "@mui/material/Badge";
+import { useAuth } from "../../Context/authContext";
+
+import DropdownMenu from "../Dropdown/DropdownMenu";
 
 const Navbar = () => {
+  const { authData } = useAuth();
   const cart = useSelector((state) => state.cart);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -34,10 +32,7 @@ const Navbar = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -82,23 +77,23 @@ const Navbar = () => {
         </div>
         <div className="iconContainer">
           <FiSearch size={22} onClick={scrollToTop} />
-          <Link to="/loginSignUp" onClick={scrollToTop}>
-            <FaRegUser size={22} />
-          </Link>
+          {authData.user ? (
+             <div className="account-dropdown-container">
+             <DropdownMenu />
+            </div>
+          ) : (
+            <Link to="/loginSignUp" onClick={scrollToTop} className="signin-link">
+              <FaRegUser size={22} />
+              <span className="signin-text">Sign In</span>
+            </Link>
+          )}
+
           <Link to="/cart" onClick={scrollToTop}>
-            <Badge
-              badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
-              color="primary"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-            >
+            <Badge badgeContent={cart.items.length || "0"} color="primary">
               <RiShoppingBagLine size={22} />
             </Badge>
           </Link>
           <FiHeart size={22} onClick={scrollToTop} />
-          {/* <RiMenu2Line size={22} /> */}
         </div>
       </nav>
 
@@ -116,18 +111,12 @@ const Navbar = () => {
             </Link>
           </div>
           <Link to="/cart">
-            <Badge
-              badgeContent={cart.items.length === 0 ? "0" : cart.items.length}
-              color="primary"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-            >
+            <Badge badgeContent={cart.items.length || "0"} color="primary">
               <RiShoppingBagLine size={22} color="black" />
             </Badge>
           </Link>
         </div>
+
         <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
           <div className="mobile-menuTop">
             <div className="mobile-menuSearchBar">
@@ -171,10 +160,19 @@ const Navbar = () => {
 
           <div className="mobile-menuFooter">
             <div className="mobile-menuFooterLogin">
-              <Link to="/loginSignUp" onClick={toggleMobileMenu}>
-                <FaRegUser />
-                <p>My Account</p>
-              </Link>
+              {authData.user ? (
+                <Link to="/account" onClick={toggleMobileMenu}>
+                  <FaRegUser size={22} />
+                  <span className="signin-text">
+                     {authData.user.displayName ? authData.user.displayName.toUpperCase() : 'MY'} ACCOUNT
+              </span>
+                </Link>
+              ) : (
+                <Link to="/loginSignUp" onClick={toggleMobileMenu}>
+                  <FaRegUser size={22} />
+                  <span className="signin-text">My Account</span>
+                </Link>
+              )}
             </div>
             <div className="mobile-menuFooterLangCurrency">
               <div className="mobile-menuFooterLang">
@@ -190,7 +188,7 @@ const Navbar = () => {
                 <p>Currency</p>
                 <select name="currency" id="currency">
                   <option value="USD">$ USD</option>
-                  <option value="INR">৳ BDT</option>
+                  <option value="BDT">৳ BDT</option>
                   <option value="EUR">€ EUR</option>
                   <option value="GBP">£ GBP</option>
                 </select>

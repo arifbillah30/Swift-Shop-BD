@@ -243,3 +243,33 @@
 .mobile-menuSocial_links svg {
   cursor: pointer;
 }
+
+
+/* Sign-in Link Styles */
+.signin-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px; /* Optional: Adjust padding as needed */
+  border: 2px solid transparent; /* Start with a transparent border */
+  border-radius: 5px; /* Optional: Rounded corners */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.signin-link:hover {
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Semi-transparent border on hover */
+  background-color: rgba(0, 0, 0, 0.05); /* Optional: Slight background change */
+}
+
+.display-name {
+  font-size: 16px;
+  font-weight: 500;
+
+}
+
+.account-text {
+  font-size: 16px; /* Adjust as needed */
+  text-transform: uppercase; /* Optional: Ensure "ACCOUNT" is uppercase */
+}
+
+

@@ -1,3 +1,5 @@
+// Frontend/src/Data/StoreData.js
+
 import Product_1 from "../Assets/Products/product_1.jpg";
 import Product_1_1 from "../Assets/Products/product_1-1.jpg";
 import Product_2 from "../Assets/Products/product_2.jpg";
@@ -26,7 +28,7 @@ let StoreData = [
     productID: 1,
     frontImg: Product_1,
     backImg: Product_1_1,
-    productName: "Wooden Wall Clock",
+    productName: "Cropped Faux Leather Jacket",
     productPrice: 29,
     productReviews: "8k+ reviews",
   },

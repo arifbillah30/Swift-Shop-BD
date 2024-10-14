@@ -27,7 +27,6 @@ CREATE TABLE `userdata` (
   `lastName` varchar(45) DEFAULT NULL,
   `displayName` varchar(45) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
-   `email` varchar(45) NOT NULL,
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -53,3 +52,20 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-09-17 14:14:25
+
+
+
+CREATE TABLE `orders` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `productID` INT NOT NULL,
+  `frontImg` VARCHAR(255),
+  `backImg` VARCHAR(255),
+  `productName` VARCHAR(100) NOT NULL,
+  `productPrice` DECIMAL(10, 2) NOT NULL,
+  `productReviews` VARCHAR(50),
+  `quantity` INT NOT NULL,
+  `paymentMethod` VARCHAR(50) NOT NULL,
+  `userEmail` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  `createdDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

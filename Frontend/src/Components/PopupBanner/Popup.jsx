@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Popup.css";
 
 import popupImg from "../../Assets/newsletter-popup.png";
 
 const Popup = () => {
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    // Check if the popup has been shown before
+    const hasShownPopup = localStorage.getItem("hasShownPopup");
+    if (!hasShownPopup) {
+      setShowPopup(true);
+    }
+  }, []);
 
   const handleClose = () => {
     setFadeOut(true);
     setTimeout(() => {
       setShowPopup(false);
+      localStorage.setItem("hasShownPopup", "true"); // Set flag in localStorage
     }, 300);
   };
 
@@ -26,9 +35,7 @@ const Popup = () => {
           </div>
           <div className="popup-right">
             <h2>Sign Up to Get Free Delivery</h2>
-            <p>
-            You'll get free delivery on your first order.
-            </p>
+            <p>You'll get free delivery on your first order.</p>
             <form>
               <input type="email" placeholder="Your email address" required />
               <button type="submit">JOIN</button>

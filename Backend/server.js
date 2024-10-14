@@ -1,17 +1,21 @@
+// Backend/server.js
+
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // Make sure to import path
 const app = express();
 const port = process.env.PORT || 5000;
+const productRoutes = require('./routes/productRoutes');
+const orderControl = require('./routes/orderControl');
+const addressRoutes = require('./routes/addressRoutes.js'); 
+const blogRoutes = require('./routes/blogRoutes');
 
 // Import the database connection
-const db = require('./dbconnect');
+const db = require('./routes/dbconnect');
 
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true // Ensures cookies are sent with requests
-}));
-app.use(express.json());
+app.use(cors()); // Allow CORS
+app.use(express.json()); // Parse JSON request bodies
 
 // Route to test if the server is working
 app.get('/', (req, res) => {
@@ -26,6 +30,7 @@ app.post('/register', async (req, res) => {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
+  // TODO: Hash the password before storing it
   const query = 'INSERT INTO userdata (displayName, email, password) VALUES (?, ?, ?)';
   try {
     await db.query(query, [displayName, email, password]);
@@ -117,7 +122,107 @@ app.put('/update-password', async (req, res) => {
   }
 });
 
+// Route to handle orders
+app.post('/orders', async (req, res) => {
+  const { orders, paymentMethod, userEmail } = req.body;
+
+  if (!orders || !paymentMethod || !userEmail) {
+    return res.status(400).json({ message: 'Missing orders, payment method, or user email.' });
+  }
+
+  const insertOrderQuery = `
+    INSERT INTO orders (productID, frontImg, backImg, productName, productPrice, productReviews, quantity, paymentMethod, userEmail, status) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const dbPromises = orders.map(order => {
+    const { productID, frontImg, backImg, productName, productPrice, productReviews, quantity } = order;
+    const status = order.status || 'Pending'; // Default status to "Pending"
+
+    return db.query(insertOrderQuery, [
+      productID, frontImg, backImg, productName, productPrice, productReviews, quantity, paymentMethod, userEmail, status
+    ]);
+  });
+
+  try {
+    await Promise.all(dbPromises);
+    res.status(201).json({ message: 'Orders saved successfully.' });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// Route to retrieve orders
+app.get('/orders', async (req, res) => {
+  const { userEmail } = req.query;
+
+  const query = userEmail
+    ? 'SELECT * FROM orders WHERE userEmail = ? ORDER BY createdDate DESC'
+    : 'SELECT * FROM orders ORDER BY createdDate DESC';
+
+  try {
+    const [results] = userEmail
+      ? await db.query(query, [userEmail])  // Filter by userEmail if provided
+      : await db.query(query);  // Fetch all orders if no userEmail is provided
+
+    // Group orders by createdDate and userEmail
+    const groupedOrders = {};
+    results.forEach(order => {
+      const key = `${order.createdDate}_${order.userEmail}`;
+      if (!groupedOrders[key]) {
+        groupedOrders[key] = {
+          createdDate: order.createdDate,
+          userEmail: order.userEmail,
+          totalItem: 0,
+          totalPrice: 0,
+          orders: []
+        };
+      }
+      
+      // Add to the totalItem and totalPrice
+      groupedOrders[key].totalItem += order.quantity;
+      groupedOrders[key].totalPrice += parseFloat(order.productPrice) * order.quantity;
+      groupedOrders[key].orders.push(order);
+    });
+
+    // Convert groupedOrders object into an array
+    const groupedOrdersArray = Object.values(groupedOrders);
+    res.json({ orders: groupedOrdersArray });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// API route to get orders
+app.get("/view-orders", (req, res) => {
+  const query = "SELECT * FROM orders";
+  db.query(query, (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+
+// For Admin Panel
+app.use(productRoutes);
+
+//View and Update order
+app.use(orderControl);
+
+// Serve static files from the 'files/images' directory
+app.use('/files/images', express.static(path.join(__dirname, 'files', 'images')));
+
+app.use('/addresses', addressRoutes);
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+//blog
+
+app.use('/blogs', blogRoutes); // Mounts the blog routes under '/blogs'
+
+app.use('/files/blogs', express.static(path.join(__dirname, 'files', 'blogs')));

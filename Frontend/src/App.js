@@ -1,4 +1,4 @@
-//App.js
+// Frontend/src/App.js
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -24,10 +24,16 @@ import Popup from "./Components/PopupBanner/Popup";
 import { Toaster } from "react-hot-toast";
 import AccountDetails from './Components/Dashboard/account-details'; 
 import AccountOrders from './Components/Dashboard/account-orders'; 
+import { AuthContextProvider } from "./Context/authContext";  // Import AuthContextProvider
+import ProtectedRoute from "./Context/protectedRoute"; // Import ProtectedRoute
+import AccountAddress from './Components/Dashboard/account-address';
+import Logout from './Components/Authentication/LogOut/logout';
+
+
 
 const App = () => {
   return (
-    <>
+    <AuthContextProvider> {/* Wrap the app with AuthContextProvider */}
       <Popup />
       <ScrollToTop />
       <BrowserRouter>
@@ -45,14 +51,40 @@ const App = () => {
           <Route path="/terms" element={<TermsConditions />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/account-details" element={<AccountDetails/>} /> 
-          <Route path="/account-orders" element={<AccountOrders/>} /> 
+          <Route path="/logout" element={<Logout />} />
 
+
+          {/* Protected routes */}
+          <Route
+            path="/account-details"
+            element={
+              <ProtectedRoute>
+
+                <AccountDetails />
+                </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account-orders"
+            element={
+              <ProtectedRoute>
+                <AccountOrders />
+              </ProtectedRoute>
+            }
+          />
+             <Route
+            path="/account-address"
+            element={
+              <ProtectedRoute>
+                <AccountAddress />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
         <Toaster />
       </BrowserRouter>
-    </>
+    </AuthContextProvider>
   );
 };
 

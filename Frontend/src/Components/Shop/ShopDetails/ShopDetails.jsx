@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShopDetails.css";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../Features/Cart/cartSlice";
-
 import Filter from "../Filters/Filter";
 import { Link } from "react-router-dom";
-import StoreData from "../../../Data/StoreData";
 import { FiHeart } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
 import { IoFilterSharp, IoClose } from "react-icons/io5";
@@ -16,9 +13,63 @@ import toast from "react-hot-toast";
 
 const ShopDetails = () => {
   const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 500]); // Default price range
+  const [sortOption, setSortOption] = useState("default");
 
   const [wishList, setWishList] = useState({});
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        console.log('Product Data:', data); // Log the entire data response to check if total_review exists
+        setProducts(data.products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+  
+    fetchProducts();
+  }, []);
+
+
+  // filer
+
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value); // Update sort option based on user selection
+  };
+
+
+  const handlePriceChange = (newPriceRange) => {
+    setPriceRange(newPriceRange);
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const price = parseFloat(product.price);
+    return price >= priceRange[0] && price <= priceRange[1];
+  });
+
+
+  // Sorting logic
+  let sortedProducts = [...filteredProducts];
+  if (sortOption === "a-z") {
+    sortedProducts.sort((a, b) => a.product_name.localeCompare(b.product_name));
+  } else if (sortOption === "z-a") {
+    sortedProducts.sort((a, b) => b.product_name.localeCompare(a.product_name));
+  } else if (sortOption === "lowToHigh") {
+    sortedProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+  } else if (sortOption === "highToLow") {
+    sortedProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+  }
+  
+  
 
   const handleWishlistClick = (productID) => {
     setWishList((prevWishlist) => ({
@@ -45,8 +96,17 @@ const ShopDetails = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   const handleAddToCart = (product) => {
+
+    const productDetails = {
+      productID: product.product_id,
+      productName: product.product_name,
+      productPrice: parseFloat(product.price),
+      frontImg: product.images[0],
+      productReviews: product.total_review + "K+ reviews",
+    };
+    
     const productInCart = cartItems.find(
-      (item) => item.productID === product.productID
+      (item) => item.productID === productDetails.productID
     );
 
     if (productInCart && productInCart.quantity >= 20) {
@@ -62,7 +122,7 @@ const ShopDetails = () => {
         },
       });
     } else {
-      dispatch(addToCart(product));
+      dispatch(addToCart(productDetails));
       toast.success(`Added to cart!`, {
         duration: 2000,
         style: {
@@ -82,7 +142,7 @@ const ShopDetails = () => {
       <div className="shopDetails">
         <div className="shopDetailMain">
           <div className="shopDetails__left">
-            <Filter />
+          <Filter onPriceChange={handlePriceChange} /> {/* Pass handler here */}
           </div>
           <div className="shopDetails__right">
             <div className="shopDetailsSorting">
@@ -91,23 +151,19 @@ const ShopDetails = () => {
                   Home
                 </Link>
                 &nbsp;/&nbsp;
-                <Link to="/shop">The Shop</Link>
+                <Link to="/shop">The Swift Shop</Link>
               </div>
               <div className="filterLeft" onClick={toggleDrawer}>
                 <IoFilterSharp />
                 <p>Filter</p>
               </div>
               <div className="shopDetailsSort">
-                <select name="sort" id="sort">
+                <select name="sort" id="sort" onChange={handleSortChange}>
                   <option value="default">Default Sorting</option>
-                  <option value="Featured">Featured</option>
-                  <option value="bestSelling">Best Selling</option>
                   <option value="a-z">Alphabetically, A-Z</option>
                   <option value="z-a">Alphabetically, Z-A</option>
                   <option value="lowToHigh">Price, Low to high</option>
                   <option value="highToLow">Price, high to low</option>
-                  <option value="oldToNew">Date, old to new</option>
-                  <option value="newToOld">Date, new to old</option>
                 </select>
                 <div className="filterRight" onClick={toggleDrawer}>
                   <div className="filterSeprator"></div>
@@ -116,68 +172,71 @@ const ShopDetails = () => {
                 </div>
               </div>
             </div>
+            
             <div className="shopDetailsProducts">
-              <div className="shopDetailsProductsContainer">
-                {StoreData.slice(0, 6).map((product) => (
-                  <div className="sdProductContainer">
-                    <div className="sdProductImages">
-                      <Link to="/Product" onClick={scrollToTop}>
-                        <img
-                          src={product.frontImg}
-                          alt=""
-                          className="sdProduct_front"
-                        />
-                        <img
-                          src={product.backImg}
-                          alt=""
-                          className="sdProduct_back"
-                        />
-                      </Link>
-                      <h4 onClick={() => handleAddToCart(product)}>
-                        Add to Cart
-                      </h4>
-                    </div>
-                    <div
-                      className="sdProductImagesCart"
-                      onClick={() => handleAddToCart(product)}
-                    >
-                      <FaCartPlus />
-                    </div>
-                    <div className="sdProductInfo">
-                      <div className="sdProductCategoryWishlist">
-                        <p>Dresses</p>
-                        <FiHeart
-                          onClick={() => handleWishlistClick(product.productID)}
-                          style={{
-                            color: wishList[product.productID]
-                              ? "red"
-                              : "#767676",
-                            cursor: "pointer",
-                          }}
-                        />
-                      </div>
-                      <div className="sdProductNameInfo">
-                        <Link to="/product" onClick={scrollToTop}>
-                          <h5>{product.productName}</h5>
-                        </Link>
-
-                        <p>${product.productPrice}</p>
-                        <div className="sdProductRatingReviews">
-                          <div className="sdProductRatingStar">
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                            <FaStar color="#FEC78A" size={10} />
-                          </div>
-                          <span>{product.productReviews}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+  <div className="shopDetailsProductsContainer">
+    {sortedProducts.length > 0 ? (
+      sortedProducts.map((product) => (
+        <div className="sdProductContainer" key={product.product_id}>
+          <div className="sdProductImages">
+            <Link to="/Product" onClick={scrollToTop}>
+              <img
+                src={product.images[0]} //  first image is the main one
+                alt={product.product_name}
+                className="sdProduct_front"
+              />
+              {product.images[1] && (
+                <img
+                  src={product.images[1]}
+                  alt={product.product_name}
+                  className="sdProduct_back"
+                />
+              )}
+            </Link>
+            <h4 onClick={() => handleAddToCart(product)}>Add to Cart</h4>
+          </div>
+          <div
+            className="sdProductImagesCart"
+            onClick={() => handleAddToCart(product)}
+          >
+            <FaCartPlus />
+          </div>
+          <div className="sdProductInfo">
+            <div className="sdProductCategoryWishlist">
+              <p>{product.categories}</p>
+              <FiHeart
+                onClick={() => handleWishlistClick(product.product_id)}
+                style={{
+                  color: wishList[product.product_id] ? "red" : "#767676",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
+            <div className="sdProductNameInfo">
+              <Link to="/product" onClick={scrollToTop}>
+                <h5>{product.product_name}</h5>
+              </Link>
+              <p>${product.price}</p>
+              <div className="sdProductRatingReviews">
+                <div className="sdProductRatingStar">
+                  <FaStar color="#FEC78A" size={10} />
+                  <FaStar color="#FEC78A" size={10} />
+                  <FaStar color="#FEC78A" size={10} />
+                  <FaStar color="#FEC78A" size={10} />
+                  <FaStar color="#FEC78A" size={10} />
+                </div>
+                <span>({product.total_review} K)</span>
               </div>
             </div>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p>No products found.</p>
+    )}
+  </div>
+</div>
+
             <div className="shopDetailsPagination">
               <div className="sdPaginationPrev">
                 <p onClick={scrollToTop}>
@@ -210,7 +269,7 @@ const ShopDetails = () => {
           <IoClose onClick={closeDrawer} className="closeButton" size={26} />
         </div>
         <div className="drawerContent">
-          <Filter />
+        <Filter onPriceChange={handlePriceChange} />
         </div>
       </div>
     </>

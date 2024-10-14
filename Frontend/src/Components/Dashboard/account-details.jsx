@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
+import { useAuth } from '../../Context/authContext'; // Adjust the path based on your folder structure
 
 const AccountDetails = () => {
-  const [formData, setFormData] = useState({
+  const { authData, updateUserData } = useAuth(); 
+    const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     displayName: '',
@@ -18,26 +18,17 @@ const AccountDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is logged in by checking the auth token
-    const authToken = sessionStorage.getItem('authToken');
-    if (!authToken) {
-      // If not logged in, redirect to the home page or login page
-      navigate('/LoginSignUP');
-      return; // Ensure effect does not run further if redirected
-    }
-
-    // Load user details from session storage
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    if (user) {
+    // Load user details from authData
+    if (authData.user) {
       setFormData(prevData => ({
         ...prevData,
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
-        displayName: user.displayName || '',
-        email: user.email || '',
+        firstName: authData.user.firstName || '',
+        lastName: authData.user.lastName || '',
+        displayName: authData.user.displayName || '',
+        email: authData.user.email || '',
       }));
     }
-  }, [navigate]); // Only navigate changes
+  }, [authData]); // Add authData as a dependency
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -87,34 +78,35 @@ const AccountDetails = () => {
             newPassword: formData.newPassword,
           }),
         });
-  
+
         if (response.ok) {
-          alert('Account details updated successfully!');
-          // Update session storage
-          const updatedUser = {
+
+          updateUserData({
             firstName: formData.firstName,
             lastName: formData.lastName,
             displayName: formData.displayName,
             email: formData.email,
-          };
-          sessionStorage.setItem('user', JSON.stringify(updatedUser));
+          });
+
+
+          alert('Account details updated successfully!');
+          // Optionally, update session storage or context if necessary
         } else {
           const data = await response.json();
           setFormErrors(prevErrors => ({
             ...prevErrors,
-            server: data.message || 'Update failed'
+            server: data.message || 'Update failed',
           }));
         }
       } catch (error) {
         console.error('Error updating account:', error);
         setFormErrors(prevErrors => ({
           ...prevErrors,
-          server: 'An error occurred. Please try again later.'
+          server: 'An error occurred. Please try again later.',
         }));
       }
     }
-  };  
-  
+  };
 
   return (
     <main>
@@ -126,10 +118,12 @@ const AccountDetails = () => {
             <ul className="account-nav">
               <li><a href="/account-dashboard" className="menu-link menu-link_us-s">Dashboard</a></li>
               <li><a href="/account-orders" className="menu-link menu-link_us-s">Orders</a></li>
-              <li><a href="/account-edit-address" className="menu-link menu-link_us-s">Addresses</a></li>
+              <li><a href="/account-address" className="menu-link menu-link_us-s">Addresses</a></li>
               <li><a href="/account-edit" className="menu-link menu-link_us-s menu-link_active">Account Details</a></li>
               <li><a href="/account-wishlist" className="menu-link menu-link_us-s">Wishlist</a></li>
-              <li><a href="/login-register" className="menu-link menu-link_us-s">Logout</a></li>
+              <li>
+                <a href="/logout" className="menu-link menu-link_us-s">Logout</a>
+              </li>
             </ul>
           </div>
           <div className="col-lg-9">
@@ -254,17 +248,11 @@ const AccountDetails = () => {
                         )}
                       </div>
                     </div>
-                    <div className="col-md-12">
-                      <div className="my-3">
-                        <button type="submit" className="btn btn-primary">Save Changes</button>
-                      </div>
-                    </div>
+                  </div>
+                  <div className="form-footer">
+                    <button type="submit" className="btn btn-primary">Update Account</button>
                     {formErrors.server && (
-                      <div className="col-md-12">
-                        <div className="alert alert-danger">
-                          {formErrors.server}
-                        </div>
-                      </div>
+                      <div className="text-danger">{formErrors.server}</div>
                     )}
                   </div>
                 </form>
