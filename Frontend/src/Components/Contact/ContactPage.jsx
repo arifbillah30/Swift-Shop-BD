@@ -40,9 +40,9 @@ const ContactPage = () => {
                 <br /> Bangladesh
               </p>
               <p>
-              contact@swiftshopbd.co.uk
+              contact@swiftshopltd.co.uk
                 <br />
-                +880 9696236121
+                +447915605557
               </p>
             </div>
             <div className="address">
@@ -52,7 +52,7 @@ const ContactPage = () => {
                 United Kingdom
               </p>
               <p>
-              contact@swiftshopbd.co.uk
+              contact@swiftshopltd.co.uk
                 <br />
                 +44 7915605557
               </p>

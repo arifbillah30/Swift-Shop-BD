@@ -17,7 +17,7 @@ const HeroSection = () => {
     <>
       <div className="heroMain">
         <div className="sectionleft">
-          <p>TRENDING 2024</p>
+          <p>TRENDING 2025</p>
           <h1>Modern Living Room</h1>
           <span>Limited Time Offer - Up to 60% off & Free Shipping</span>
           <div className="heroLink">

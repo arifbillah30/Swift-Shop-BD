@@ -34,11 +34,12 @@ const Footer = () => {
               <img src={logo} alt=""/>
             </div>
 
-            <p>ECB Chattar, Dhaka Cantonment, Dhaka - 1206</p>
+            <p> 82a James Carter Road, Mildenhall, Bury St. Edmunds, Suffolk, England, IP28 7DE
+              United Kingdom</p>
 
             <div className="footer_address">
-              <strong> contact@swiftshopbd.co.uk </strong>
-              <strong> +880 9696236121 </strong>
+              <strong> contact@swiftshopltd.co.uk </strong>
+              <strong> +447915605557 </strong>
             </div>
 
             <div className="social_links">

@@ -116,7 +116,7 @@ const Trendy = () => {
             {activeTab === "tab1" && (
               <div className="trendyMainContainer">
                 {StoreData.slice(0, 8).map((product) => (
-                  <div className="trendyProductContainer" key={product.id}>
+                  <div className="trendyProductContainer" key={product.productID}>
                     <div className="trendyProductImages">
                       <Link to="/Product" onClick={scrollToTop}>
                         <img
@@ -182,7 +182,7 @@ const Trendy = () => {
                 {StoreData.slice(0, 8)
                   .reverse()
                   .map((product) => (
-                    <div className="trendyProductContainer" key={product.id}>
+                    <div className="trendyProductContainer" key={product.productID}>
                       <div className="trendyProductImages">
                         <Link to="/Product" onClick={scrollToTop}>
                           <img
@@ -250,7 +250,7 @@ const Trendy = () => {
                 {StoreData.slice(0, 8)
                   .sort(sortByReviews)
                   .map((product) => (
-                    <div className="trendyProductContainer" key={product.id}>
+                    <div className="trendyProductContainer" key={product.productID}>
                       <div className="trendyProductImages">
                         <Link to="/Product" onClick={scrollToTop}>
                           <img
@@ -318,7 +318,7 @@ const Trendy = () => {
                 {StoreData.slice(0, 8)
                   .sort(sortByPrice)
                   .map((product) => (
-                    <div className="trendyProductContainer" key={product.id}>
+                    <div className="trendyProductContainer" key={product.productID}>
                       <div className="trendyProductImages">
                         <Link to="/Product">
                           <img
