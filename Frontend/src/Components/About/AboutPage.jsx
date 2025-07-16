@@ -27,34 +27,32 @@ const AboutPage = () => {
         <div className="aboutContent">
           <h3>Our Story</h3>
           <h4>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
+            At SWIFT SHOP LTD, we started with a simple mission: to bring unique,
+             stylish, and high-quality home decor items to customers worldwide. 
+             From the charm of elegant chandeliers to the coziness of ambient strip lights, 
+             we’ve grown our collection with care and attention to detail.
           </h4>
           <p>
-            Saw wherein fruitful good days image them, midst, waters upon, saw.
-            Seas lights seasons. Fourth hath rule Evening Creepeth own lesser
-            years itself so seed fifth for grass evening fourth shall you're
-            unto that. Had. Female replenish for yielding so saw all one to
-            yielding grass you'll air sea it, open waters subdue, hath. Brought
-            second Made. Be. Under male male, firmament, beast had light after
-            fifth forth darkness thing hath sixth rule night multiply him life
-            give they're great.
+            What began as a passion project has now become a 
+            trusted name in online home decor shopping. We take 
+            pride in curating products that bring warmth, character,
+             and personality to every space. Whether you're decorating
+              a new home or refreshing your current one, our goal is to 
+              make style accessible and enjoyable for everyone.
           </p>
           <div className="content1">
             <div className="contentBox">
               <h5>Our Mission</h5>
               <p>
-                Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+                To provide beautifully designed, reliable, and affordable
+                 home decor items that elevate living spaces and bring joy to homes across the globe.
               </p>
             </div>
             <div className="contentBox">
               <h5>Our Vision</h5>
               <p>
-                Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+                To become a leading name in global home decor retail,
+                 known for exceptional customer service, trusted quality, and trend-forward design.
               </p>
             </div>
           </div>
@@ -65,12 +63,15 @@ const AboutPage = () => {
             <div className="textContent">
               <h5>The Company</h5>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-                sapien dignissim a elementum. Sociis metus, hendrerit mauris id
-                in. Quis sit sit ultrices tincidunt euismod luctus diam. Turpis
-                sodales orci etiam phasellus lacus id leo. Amet turpis nunc,
-                nulla massa est viverra interdum. Praesent auctor nulla morbi
-                non posuere mattis. Arcu eu id maecenas cras.
+                SWIFT SHOP LTD is a UK-registered business committed to
+                 delivering high-quality home improvement and decor items
+                  to customers both locally and internationally. With a strong
+                   presence on platforms like Facebook and eBay, and a growing
+                    online store, we strive to offer convenience, value, and 
+                    trust in every transaction. From decorative lighting to wall
+                     accents and artificial greenery, our diverse product line reflects 
+                     modern aesthetics and practical design. Our team is dedicated to making
+                      home decoration simple, stylish, and satisfying for every customer.
               </p>
             </div>
           </div>
@@ -78,7 +79,7 @@ const AboutPage = () => {
       </div>
       <Services />
       <div className="companyPartners">
-        <h5>Company Partners</h5>
+        <h5>Payment Partners</h5>
         <Swiper
           slidesPerView={1}
           loop={true}
@@ -130,7 +131,7 @@ const AboutPage = () => {
               <img src={brand5} alt="" />
             </div>
           </SwiperSlide>
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <div className="aboutBrands">
               <img src={brand6} alt="" />
             </div>
@@ -139,7 +140,7 @@ const AboutPage = () => {
             <div className="aboutBrands">
               <img src={brand7} alt="" />
             </div>
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
     </>
