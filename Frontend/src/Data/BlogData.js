@@ -9,37 +9,37 @@ let BlogData = [
   {
     blogID: 1,
     blogThumbnail: blog1,
-    blogDate: "April 01, 2024",
+    blogDate: "April 01, 2025",
     blogHeading: "Woman with good shoes is never be ugly place",
   },
   {
     blogID: 2,
     blogThumbnail: blog2,
-    blogDate: "April 14, 2024",
+    blogDate: "April 14, 2025",
     blogHeading: "Heaven upon heaven moveth every have known",
   },
   {
     blogID: 3,
     blogThumbnail: blog3,
-    blogDate: "April 24, 2024",
+    blogDate: "April 24, 2025",
     blogHeading: "Tree doesn't good void, waters without created",
   },
   {
     blogID: 4,
     blogThumbnail: blog4,
-    blogDate: "April 30, 2024",
+    blogDate: "April 30, 2025",
     blogHeading: "Given Set was without from god divide rule Hath",
   },
   {
     blogID: 5,
     blogThumbnail: blog5,
-    blogDate: "May 02, 2024",
+    blogDate: "May 02, 2025",
     blogHeading: "Tree earth fowl given moveth deep lesser after sky",
   },
   {
     blogID: 6,
     blogThumbnail: blog6,
-    blogDate: "May 19, 2024",
+    blogDate: "May 19, 2025",
     blogHeading: "Us yielding Fish sea night night the said him two",
   },
 ];

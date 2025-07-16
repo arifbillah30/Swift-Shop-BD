@@ -4123,7 +4123,7 @@ ansi-styles@^2.2.1:
 
 ansi-styles@^3.2.1:
   version "3.2.1"
-  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
+  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20253e50b12be0f04b8dedbf07520ce841d"
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
@@ -4878,7 +4878,7 @@ babel-plugin-transform-es2015-arrow-functions@^6.22.0:
 
 babel-plugin-transform-es2015-block-scoped-functions@^6.22.0:
   version "6.22.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-block-scoped-functions/-/babel-plugin-transform-es2015-block-scoped-functions-6.22.0.tgz#bbc51b49f964d70cb8d8e0b94e820246ce3a6141"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-block-scoped-functions/-/babel-plugin-transform-es2015-block-scoped-functions-6.22.0.tgz#bbc51b49f964d70cb8d8e0b94e820256ce3a6141"
   integrity sha512-2+ujAT2UMBzYFm7tidUsYh+ZoIutxJ3pN9IYrF1/H6dCKtECfhmB8UkHVpyxDwkj0CYbQG35ykoz925TUnBc3A==
   dependencies:
     babel-runtime "^6.22.0"

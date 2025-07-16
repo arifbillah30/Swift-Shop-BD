@@ -195,11 +195,25 @@ const Navbar = () => {
               </div>
             </div>
             <div className="mobile-menuSocial_links">
-              <FaFacebookF />
-              <FaXTwitter />
-              <FaInstagram />
-              <FaYoutube />
-              <FaPinterest />
+              <a
+                            href="https://www.facebook.com/swiftshopbd"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <FaFacebookF />
+                          </a>
+                          <a href="" target="_blank" rel="noopener noreferrer">
+                            <FaXTwitter />
+                          </a>
+                          <a href="" target="_blank" rel="noopener noreferrer">
+                            <FaInstagram />
+                          </a>
+                          <a href="" target="_blank" rel="noopener noreferrer">
+                            <FaYoutube />
+                          </a>
+                          <a href="" target="_blank" rel="noopener noreferrer">
+                            <FaPinterest />
+                          </a>
             </div>
           </div>
         </div>

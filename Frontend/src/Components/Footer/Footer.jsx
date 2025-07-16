@@ -31,11 +31,14 @@ const Footer = () => {
         <div className="footer__container">
           <div className="footer_left">
             <div className="footer_logo_container">
-              <img src={logo} alt=""/>
+              <img src={logo} alt="" />
             </div>
 
-            <p> 82a James Carter Road, Mildenhall, Bury St. Edmunds, Suffolk, England, IP28 7DE
-              United Kingdom</p>
+            <p>
+              {" "}
+              82a James Carter Road, Mildenhall, Bury St. Edmunds, Suffolk,
+              England, IP28 7DE United Kingdom
+            </p>
 
             <div className="footer_address">
               <strong> contact@swiftshopltd.co.uk </strong>
@@ -43,11 +46,25 @@ const Footer = () => {
             </div>
 
             <div className="social_links">
-              <FaFacebookF />
-              <FaXTwitter />
-              <FaInstagram />
-              <FaYoutube />
-              <FaPinterest />
+              <a
+                href="https://www.facebook.com/swiftshopbd"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebookF />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <FaXTwitter />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <FaInstagram />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <FaYoutube />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <FaPinterest />
+              </a>
             </div>
           </div>
 
@@ -139,17 +156,15 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer_bottom">
-          <p>
-            © 2024 Swift Shop LTD
-          </p>
+          <p>© 2025 Swift Shop LTD</p>
           <div className="footerLangCurrency">
             <div className="footerLang">
               <p>Language</p>
               <select name="language" id="language">
-              <option value="English">English</option>
-                  <option value="Bangla">Bangla</option>
-                  <option value="Germany">Germany</option>
-                  <option value="French">French</option>
+                <option value="English">English</option>
+                <option value="Bangla">Bangla</option>
+                <option value="Germany">Germany</option>
+                <option value="French">French</option>
               </select>
             </div>
             <div className="footerCurrency">

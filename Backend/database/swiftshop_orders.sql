@@ -45,7 +45,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (6,1,'/static/media/product_1.4b680595f50a80687f4e.jpg','/static/media/product_1-1.4b680595f50a80687f4e.jpg','Cropped Faux Leather Jacket',29.00,'8k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2024-09-29 09:17:54'),(7,2,'/static/media/product_2.fcfaf3bfedddb052e4f1.jpg','/static/media/product_2-1.fcfaf3bfedddb052e4f1.jpg','Calvin Shorts',62.00,'2k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2024-09-29 09:17:54'),(8,1,'/static/media/product_1.4b680595f50a80687f4e.jpg','/static/media/product_1-1.4b680595f50a80687f4e.jpg','Cropped Faux Leather Jacket',29.00,'8k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2024-09-30 16:47:32');
+INSERT INTO `orders` VALUES (6,1,'/static/media/product_1.4b680595f50a80687f4e.jpg','/static/media/product_1-1.4b680595f50a80687f4e.jpg','Cropped Faux Leather Jacket',29.00,'8k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2025-09-29 09:17:54'),(7,2,'/static/media/product_2.fcfaf3bfedddb052e4f1.jpg','/static/media/product_2-1.fcfaf3bfedddb052e4f1.jpg','Calvin Shorts',62.00,'2k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2025-09-29 09:17:54'),(8,1,'/static/media/product_1.4b680595f50a80687f4e.jpg','/static/media/product_1-1.4b680595f50a80687f4e.jpg','Cropped Faux Leather Jacket',29.00,'8k+ reviews',1,'Cash on delivery','admin@gmail.com','Pending','2025-09-30 16:47:32');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-30 23:17:01
+-- Dump completed on 2025-09-30 23:17:01
