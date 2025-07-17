@@ -55,7 +55,7 @@ const ShoppingCart = () => {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    return `£{day}/£{month}/£{year}`;
   };
 
   // Random number
@@ -110,7 +110,7 @@ const ShoppingCart = () => {
         <h2>Cart</h2>
 
         <div className="shoppingCartTabsContainer">
-          <div className={`shoppingCartTabs ${activeTab}`}>
+          <div className={`shoppingCartTabs £{activeTab}`}>
             <button
               className={activeTab === "cartTab1" ? "active" : ""}
               onClick={() => {
@@ -198,7 +198,7 @@ const ShoppingCart = () => {
                               data-label="Price"
                               style={{ textAlign: "center" }}
                             >
-                              ${item.productPrice}
+                              £{item.productPrice}
                             </td>
                             <td data-label="Quantity">
                               <div className="ShoppingBagTableQuantity">
@@ -243,7 +243,7 @@ const ShoppingCart = () => {
                                   fontWeight: "500",
                                 }}
                               >
-                                ${item.quantity * item.productPrice}
+                                £{item.quantity * item.productPrice}
                               </p>
                             </td>
                             <td data-label="">
@@ -360,7 +360,7 @@ const ShoppingCart = () => {
                                       +
                                     </button>
                                   </div>
-                                  <span>${item.productPrice}</span>
+                                  <span>£{item.productPrice}</span>
                                 </div>
                                 <div className="shoppingBagTableMobileItemsDetailTotal">
                                   <MdOutlineClose
@@ -369,7 +369,7 @@ const ShoppingCart = () => {
                                       dispatch(removeFromCart(item.productID))
                                     }
                                   />
-                                  <p>${item.quantity * item.productPrice}</p>
+                                  <p>£{item.quantity * item.productPrice}</p>
                                 </div>
                               </div>
                             </div>
@@ -417,14 +417,14 @@ const ShoppingCart = () => {
                     <tbody>
                       <tr>
                         <th>Subtotal</th>
-                        <td>${totalPrice.toFixed(2)}</td>
+                        <td>£{totalPrice.toFixed(2)}</td>
                       </tr>
                       <tr>
                         <th>Shipping</th>
                         <td>
                           <div className="shoppingBagTotalTableCheck">
-                            <p>${(totalPrice === 0 ? 0 : 5).toFixed(2)}</p>
-                            <p>Ship to BD</p>
+                            <p>£{(totalPrice === 0 ? 0 : 5).toFixed(2)}</p>
+                            <p>Ship to United Kingdom</p>
                             <p
                               onClick={scrollToTop}
                               style={{
@@ -438,12 +438,12 @@ const ShoppingCart = () => {
                       </tr>
                       <tr>
                         <th>VAT</th>
-                        <td>${(totalPrice === 0 ? 0 : 11).toFixed(2)}</td>
+                        <td>£{(totalPrice === 0 ? 0 : 11).toFixed(2)}</td>
                       </tr>
                       <tr>
                         <th>Total</th>
                         <td>
-                          ${(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(2)}
+                          £{(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(2)}
                         </td>
                       </tr>
                     </tbody>
@@ -580,7 +580,7 @@ const ShoppingCart = () => {
               {cartItems.map((items) => (
                 <tr key={items.productId}>
                   <td>{items.productName} x {items.quantity}</td>
-                  <td>${(items.productPrice * items.quantity).toFixed(2)}</td>
+                  <td>£{(items.productPrice * items.quantity).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -591,19 +591,19 @@ const ShoppingCart = () => {
             <tbody>
               <tr>
                 <th>Subtotal</th>
-                <td>${totalPrice.toFixed(2)}</td>
+                <td>£{totalPrice.toFixed(2)}</td>
               </tr>
               <tr>
                 <th>Shipping</th>
-                <td>$5.00</td>
+                <td>£5.00</td>
               </tr>
               <tr>
                 <th>VAT</th>
-                <td>$11.00</td>
+                <td>£11.00</td>
               </tr>
               <tr>
                 <th>Total</th>
-                <td>${(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(2)}</td>
+                <td>£{(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -692,7 +692,7 @@ const ShoppingCart = () => {
                     </div>
                     <div className="orderInfoItem">
                       <p>Total</p>
-                      <h4>${totalPrice.toFixed(2)}</h4>
+                      <h4>£{totalPrice.toFixed(2)}</h4>
                     </div>
                     <div className="orderInfoItem">
                       <p>Payment Method</p>
@@ -715,7 +715,7 @@ const ShoppingCart = () => {
                               <td>
                                 {items.productName} x {items.quantity}
                               </td>
-                              <td>${items.productPrice * items.quantity}</td>
+                              <td>£{items.productPrice * items.quantity}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -726,20 +726,20 @@ const ShoppingCart = () => {
                         <tbody>
                           <tr>
                             <th>Subtotal</th>
-                            <td>${totalPrice.toFixed(2)}</td>
+                            <td>£{totalPrice.toFixed(2)}</td>
                           </tr>
                           <tr>
                             <th>Shipping</th>
-                            <td>$5</td>
+                            <td>£5</td>
                           </tr>
                           <tr>
                             <th>VAT</th>
-                            <td>$11</td>
+                            <td>£11</td>
                           </tr>
                           <tr>
                             <th>Total</th>
                             <td>
-                              $
+                              £
                               {(totalPrice === 0 ? 0 : totalPrice + 16).toFixed(
                                 2
                               )}

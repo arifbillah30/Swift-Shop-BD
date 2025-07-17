@@ -22,7 +22,7 @@ const TermsandConditions = () => {
 
           <h6>Shipping & Delivery</h6>
           <p>
-            Orders are typically dispatched within 1–3 business days. Delivery times may vary based on location. Orders over $140 are eligible for free shipping.
+            Orders are typically dispatched within 1–3 business days. Delivery times may vary based on location.
           </p>
 
           <h6>Returns & Refunds</h6>
