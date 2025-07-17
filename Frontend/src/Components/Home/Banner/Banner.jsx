@@ -13,7 +13,7 @@ const Banner = () => {
   return (
     <div className="banner">
       <div className="bannerLeft">
-        <h6 className="bannerh6">Starting At $39</h6>
+        <h6 className="bannerh6">Starting At £39</h6>
         <h3 className="bannerh3">Living Room</h3>
         <h5 className="bannerh5">
           <Link
@@ -27,7 +27,7 @@ const Banner = () => {
         </h5>
       </div>
       <div className="bannerRgt">
-        <h6 className="bannerh6">Starting At $19</h6>
+        <h6 className="bannerh6">Starting At £19</h6>
         <h3 className="bannerh3">Bed Room</h3>
         <h5 className="bannerh5">
           <Link
