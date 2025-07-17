@@ -37,7 +37,7 @@ let StoreData = [
     frontImg: Product_2,
     backImg: Product_2_1,
     productName: "Modern LED Strip Light",
-    productPrice: 62,
+    productPrice: 10,
     productReviews: "500+ reviews",
   },
   {
@@ -45,7 +45,7 @@ let StoreData = [
     frontImg: Product_3,
     backImg: Product_3_1,
     productName: "Gold Vintage Wall Clock",
-    productPrice: 60,
+    productPrice: 20,
     productReviews: "300+ reviews",
   },
   {
@@ -61,7 +61,7 @@ let StoreData = [
     frontImg: Product_5,
     backImg: Product_5_1,
     productName: "Decorative Hanging Chandelier",
-    productPrice: 100,
+    productPrice: 89,
     productReviews: "900+ reviews",
   },
   {
